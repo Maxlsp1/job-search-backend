@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "admin",
+    "database": "job_search_db",
+    "host": "localhost",
+    "dialect": "mysql",
+    "port": 6603, 
+    "ssl": true
+  },
+  "test": {
+    "username": "admin",
+    "password": "admin",
+    "database": "job_search_db",
+    "host": "localhost",
+    "dialect": "mysql",
+    "port": 6603,
+    "ssl": true
+  },
+  "production": {
+    "username": "root",
+    "password": "xxxxxxxxx",
+    "database": "job_search_db",
+    "host": "localhost",
+    "dialect": "mariadb",
+    "port": 3306,
+    "ssl": true
+  }
+}
