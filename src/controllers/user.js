@@ -44,7 +44,8 @@ async function signup(req, res, next){
 
   try {
     
-    const account = req.body.account
+    const account = req.body
+    console.log('data => ', req.body )
 
     const hash = await bcrypt.hash(account.pwd, 10)
 
