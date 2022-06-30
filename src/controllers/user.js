@@ -6,31 +6,31 @@ const User = db.User
 async function signin(req, res, next){
 
   try {
-    const account = req.body.account
-    const user = await User.findOne({email: account.email })
-
+    const account = req.body
+    const user = await User.findOne({where: {email: account.email }})
+    console.log('account => ', account)
     if(!user){
 
       res.status(400).send({error: 'utilisateur non trouvés ! '})
 
     } else {
-      const valid = await bcrypt.compare(account.password, user.password)
-
-      if(!valid){
+      const valid = await bcrypt.compare(account.pwd, user.password)
+      console.log('valid ====> ', valid)
+      if(valid === false){
 
         res.status(401).send({error: 'mot de passe incorect !!'})
 
       } else {
-
+        delete user.dataValues.password
         res.status(200).send({
           user: user,
           token: jwt.sign(
-            {userId: newUser.id},
+            {userId: user.id},
             'RANDOM_TOKEN_SECRET',
             {expiresIn: '24h'},
-          )
+          ),
+          authSuccess: true
         })
-
       }
     }
   } catch (error) {
@@ -45,7 +45,6 @@ async function signup(req, res, next){
   try {
     
     const account = req.body
-    console.log('data => ', req.body )
 
     const hash = await bcrypt.hash(account.pwd, 10)
 
@@ -56,7 +55,7 @@ async function signup(req, res, next){
       password: hash
     })
 
-    delete newUser.password
+    delete newUser.dataValues.password
     
     res.status(200).send({
       user: newUser,
@@ -64,7 +63,8 @@ async function signup(req, res, next){
         {userId: newUser.id},
         'RANDOM_TOKEN_SECRET',
         {expiresIn: '24h'},
-      )
+      ),
+      authSuccess: true
     })
 
   } catch (error) {
