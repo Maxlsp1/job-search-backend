@@ -34,16 +34,17 @@ try {
     return;
   });
 
-  const server = https.createServer({
-    key: fs.readFileSync('./cert/192.168.0.34+1-key.pem'),
-    cert: fs.readFileSync('./cert/192.168.0.34+1.pem')
-  }, app);
+  // const server = https.createServer({
+  //   key: fs.readFileSync('./cert/192.168.0.34+1-key.pem'),
+  //   cert: fs.readFileSync('./cert/192.168.0.34+1.pem')
+  // }, app);
 
-  server.listen(8000);
+  // server.listen(8000);
+
+  app.listen(8000, '127.0.0.1', () =>{
+    console.log('api listenning at http://127.0.0.1:8000')
+})
   
 } catch (error) {
   console.log('error : ', error);
 }
-// app.listen(8080, '192.168.0.34', () =>{
-//     console.log('api listenning at http://192.168.0.34:8000')
-// })

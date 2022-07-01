@@ -1,6 +1,8 @@
 const db = require('../models/index');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
+const { OAuth2Client } = require('google-auth-library')
+const client = new OAuth2Client("685903966367-oojitfc8lpf1qdrv3isfed7o9up0oikh.apps.googleusercontent.com")
 const User = db.User
 
 async function signin(req, res, next){
@@ -74,7 +76,28 @@ async function signup(req, res, next){
 
 }
 
+async function googleAuth(req, res, next){
+
+  try {
+    
+    const { token }  = req.body
+
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: "685903966367-p4nn1bpkcisgenc4q26c3q7d0dfki1n0.apps.googleusercontent.com"
+    });
+
+    console.log('google auth ====> ', ticket.getPayload())
+
+  } catch (error) {
+      
+    console.log('err : ', error)
+  }
+
+}
+
 module.exports = {
   signin,
   signup,
+  googleAuth
 };

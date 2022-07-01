@@ -6,4 +6,6 @@ router.post('/signin', userController.signin);
 
 router.post('/signup', userController.signup);
 
+router.post('/googleAuth', userController.googleAuth)
+
 module.exports = router;
