@@ -1,7 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const fs = require('fs');
-const https = require('https');
 const app = express();
 const db = require('./src/models/index');
 const cors = require('cors');
@@ -34,15 +32,8 @@ try {
     return;
   });
 
-  // const server = https.createServer({
-  //   key: fs.readFileSync('./cert/192.168.0.34+1-key.pem'),
-  //   cert: fs.readFileSync('./cert/192.168.0.34+1.pem')
-  // }, app);
-
-  // server.listen(8000);
-
-  app.listen(8000, '127.0.0.1', () =>{
-    console.log('api listenning at http://127.0.0.1:8000')
+  app.listen(8000, 'localhost', () =>{
+    console.log('api listenning at http://localhost:8000')
 })
   
 } catch (error) {
